@@ -1,6 +1,12 @@
 variable "name" {
   type = string
-  description = "name of the environment"
+  description = "name of the environment (resource will get this name in the console)"
+}
+
+variable "token" {
+  type = string
+  default = null
+  description = "A unique name used as reference when creating the Elastic File System to ensure idempotent file system creation. "
 }
 
 variable "kms_key_id" {
@@ -18,3 +24,12 @@ variable "protection" {
   description = "Indicates whether replication overwrite protection is enabled. Valid values: ENABLED or DISABLE"
 }
 
+variable "subnet_id" {
+  type = string
+  description = " The ID of the subnet to add the mount target in."
+}
+
+variable "security_groups" {
+  type = list(string)
+  description = "A list of up to 5 VPC security group IDs (that must be for the same VPC as subnet specified) in effect for the mount target."
+}
