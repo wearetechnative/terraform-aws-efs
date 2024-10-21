@@ -1,7 +1,7 @@
 resource "aws_efs_file_system" "efs" {
-  creation_token = var.token
-  encrypted = true
-  kms_key_id = var.kms_key_id
+  creation_token   = var.token
+  encrypted        = true
+  kms_key_id       = var.kms_key_id
   performance_mode = var.efs_performance_mode
 
   tags = {
@@ -12,17 +12,17 @@ resource "aws_efs_file_system" "efs" {
     replication_overwrite = var.protection
   }
 
-#   lifecycle_policy {
-#     transition_to_ia = "AFTER_30_DAYS"
-#     transition_to_archive = "AFTER_30_DAYS"
-#     transition_to_primary_storage_class = "AFTER_1_ACCESS"
-#   }
+  #   lifecycle_policy {
+  #     transition_to_ia = "AFTER_30_DAYS"
+  #     transition_to_archive = "AFTER_30_DAYS"
+  #     transition_to_primary_storage_class = "AFTER_1_ACCESS"
+  #   }
 }
 
 
 resource "aws_efs_mount_target" "efs" {
-  file_system_id = aws_efs_file_system.efs.id
-  subnet_id      = var.subnet_id
+  file_system_id  = aws_efs_file_system.efs.id
+  subnet_id       = var.subnet_id
   security_groups = var.security_groups
 }
 
