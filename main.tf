@@ -8,13 +8,13 @@ resource "aws_efs_file_system" "efs" {
     Name = var.name
   }
 
+  protection {
+    replication_overwrite = var.protection
+  }
+
 #   lifecycle_policy {
 #     transition_to_ia = "AFTER_30_DAYS"
 #     transition_to_archive = "AFTER_30_DAYS"
 #     transition_to_primary_storage_class = "AFTER_1_ACCESS"
 #   }
-  protection {
-    replication_overwrite = "ENABLED"
-  }
-  
 }
