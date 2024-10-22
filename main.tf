@@ -57,8 +57,12 @@ resource "aws_efs_file_system_policy" "policy" {
   policy         = data.aws_iam_policy_document.efs.json
 }
 
+data "aws_subnet" "efs" {
+  id = var.subnet_id
+}
+
 resource "aws_security_group" "efs" {
-  vpc_id = var.vpc_id
+  vpc_id = data.aws_subnet.efs.vpc_id
   egress {
     from_port        = 0
     to_port          = 0

@@ -28,8 +28,3 @@ variable "subnet_id" {
   type        = string
   description = " The ID of the subnet to add the mount target in."
 }
-
-variable "vpc_id" {
-  type = string
-  description = "Vpc id for security group"
-}
