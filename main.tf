@@ -23,7 +23,7 @@ resource "aws_efs_file_system" "efs" {
 resource "aws_efs_mount_target" "efs" {
   file_system_id  = aws_efs_file_system.efs.id
   subnet_id       = var.subnet_id
-  security_groups = var.security_groups
+  security_groups = [aws_security_group.efs.id]
 }
 
 data "aws_iam_policy_document" "efs" {
@@ -55,4 +55,23 @@ data "aws_iam_policy_document" "efs" {
 resource "aws_efs_file_system_policy" "policy" {
   file_system_id = aws_efs_file_system.efs.id
   policy         = data.aws_iam_policy_document.efs.json
+}
+
+resource "aws_security_group" "efs" {
+  vpc_id = var.vpc_id
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  ingress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
 }

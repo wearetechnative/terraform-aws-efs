@@ -29,7 +29,7 @@ variable "subnet_id" {
   description = " The ID of the subnet to add the mount target in."
 }
 
-variable "security_groups" {
-  type        = list(string)
-  description = "A list of up to 5 VPC security group IDs (that must be for the same VPC as subnet specified) in effect for the mount target."
+variable "vpc_id" {
+  type = string
+  description = "Vpc id for security group"
 }
