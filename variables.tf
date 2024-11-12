@@ -11,7 +11,7 @@ variable "token" {
 
 variable "kms_key_id" {
   type        = string
-  description = "The ARN for the KMS encryption key."
+  description = "The ARN of the KMS encryption key."
 }
 
 variable "efs_performance_mode" {
