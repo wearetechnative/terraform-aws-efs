@@ -1,10 +1,6 @@
 # terraform-aws-efs
 
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
 ## Providers
 
 | Name | Version |
@@ -34,7 +30,7 @@ No modules.
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | The ARN for the KMS encryption key. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | name of the environment (resource will get this name in the console) | `string` | n/a | yes |
 | <a name="input_protection"></a> [protection](#input\_protection) | Indicates whether replication overwrite protection is enabled. Valid values: ENABLED or DISABLE | `string` | n/a | yes |
-| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | The ID of the subnet to add the mount target in. | `string` | n/a | yes |
+| <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | The ID of the subnet to add the mount target in. | `list(string)` | n/a | yes |
 | <a name="input_token"></a> [token](#input\_token) | A unique name used as reference when creating the Elastic File System to ensure idempotent file system creation. | `string` | `null` | no |
 
 ## Outputs

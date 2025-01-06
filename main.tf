@@ -21,8 +21,9 @@ resource "aws_efs_file_system" "efs" {
 
 
 resource "aws_efs_mount_target" "efs" {
+  for_each = var.subnet_ids
   file_system_id  = aws_efs_file_system.efs.id
-  subnet_id       = var.subnet_id
+  subnet_id       = each.value.subnet_ids
   security_groups = [aws_security_group.efs.id]
 }
 
@@ -58,7 +59,8 @@ resource "aws_efs_file_system_policy" "policy" {
 }
 
 data "aws_subnet" "efs" {
-  id = var.subnet_id
+  for_each = var.subnet_ids
+  id = each.value.subnet_ids
 }
 
 resource "aws_security_group" "efs" {

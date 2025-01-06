@@ -24,7 +24,7 @@ variable "protection" {
   description = "Indicates whether replication overwrite protection is enabled. Valid values: ENABLED or DISABLE"
 }
 
-variable "subnet_id" {
-  type        = string
+variable "subnet_ids" {
+  type        = list(string)
   description = " The ID of the subnet to add the mount target in."
 }
