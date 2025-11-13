@@ -21,8 +21,10 @@ resource "aws_efs_file_system" "efs" {
 
 
 resource "aws_efs_mount_target" "efs" {
+  for_each = toset(var.subnet_ids)
+
   file_system_id  = aws_efs_file_system.efs.id
-  subnet_id       = var.subnet_id
+  subnet_id       = each.value
   security_groups = [aws_security_group.efs.id]
 }
 
@@ -58,27 +60,30 @@ resource "aws_efs_file_system_policy" "policy" {
 }
 
 data "aws_subnet" "efs" {
-  id = var.subnet_id
+  id = var.subnet_ids[0] 
+}
+
+data "aws_vpc" "efs" {
+  id = data.aws_subnet.efs.vpc_id
 }
 
 resource "aws_security_group" "efs" {
   vpc_id = data.aws_subnet.efs.vpc_id
+
+  ingress {
+    description      = "NFS from inside VPC"
+    from_port        = 2049
+    to_port          = 2049
+    protocol         = "tcp"
+    cidr_blocks      = [data.aws_vpc.efs.cidr_block]
+  }
+
   egress {
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
     cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
   }
 
-  ingress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-  tags = {
-    Name = var.name
-  }
+  tags = { Name = var.name }
 }
