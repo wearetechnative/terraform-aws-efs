@@ -1,4 +1,4 @@
-# terraform-aws-efs
+# terraform-aws-efs ![](https://img.shields.io/github/actions/workflow/status/wearetechnative/terraform-aws-efs/tflint.yaml?branch=main&style=plastic)
 [![](we-are-technative.png)](https://www.technative.nl)
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
